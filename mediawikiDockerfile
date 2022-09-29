@@ -1,0 +1,19 @@
+# Use the Docker official mediawiki image
+FROM mediawiki:latest
+
+LABEL custom.label.description="Local Mediawiki web server" \
+    custom.label.parentImage="mediawiki:latest" \
+    custom.label.arch="any" \
+    custom.label.entrypoint="none"
+
+# Expose 8080:80 and 443:443
+EXPOSE 80
+EXPOSE 443
+
+# This will copy the generated LocalSettings.php file. To create your own simply
+# build the image without the file, go to the webpage, and run the install. Then
+# copy the file locally or use the docker volume
+# Mediawiki username is "mediauser" password is "thisissupersecure"
+COPY LocalSettings.php /var/www/html/LocalSettings.php
+
+# The container name HAS to be mediawiki and use a bind for the certificate location

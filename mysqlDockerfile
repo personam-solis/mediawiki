@@ -1,0 +1,14 @@
+# Use the Docker official MySQL to be used by Mediawiki
+FROM mysql:latest
+
+# Set the root password of the database. Then create the use wikiuser. If a user
+# is created along with a password, then the container will auto make that a
+# super user.
+ENV MYSQL_RANDOM_ROOT_PASSWORD='yes' \
+    MYSQL_USER='wikiuser' \
+    MYSQL_PASSWORD='wikiuser' \
+    MYSQL_DATABASE='my_wiki' \
+    MYSQL_HOST="mediadb"
+
+# The container name HAS to be "mediadb"
+# A custom bridge network HAS to be created called "medianet"
